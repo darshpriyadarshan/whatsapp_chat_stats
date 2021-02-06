@@ -1,4 +1,5 @@
 import re
+import math
 
 
 class Friend:
@@ -7,11 +8,16 @@ class Friend:
         self.parsed_name = None
         self.message_count = None
         self.messages_list = None
-        self.word_count = None
-        self.word_frequency_dict = None
+        self.word_count = 0
+        self.word_frequency_dict = {}
         self.media_shared = None
         self.frequently_used_words = None
-        self.messages_per_day = None
+        self.messages_per_day = 0
+        self.total_messages_length = 0
+        self.longest_message = None
+        self.longest_message_length = 0
+        self.average_message_length = 0
+        self.average_words_per_message = 0
 
     def find_message_count(self, file_contents):
         self.message_count = file_contents.count(self.parsed_name)
@@ -22,9 +28,12 @@ class Friend:
         self.messages_list = re.findall(message_pattern, file_contents)
 
     def find_word_frequency(self):
-        self.word_count = 0
-        self.word_frequency_dict = {}
         for message in self.messages_list:
+            self.total_messages_length += len(message)
+            if len(message) > self.longest_message_length and not (message.startswith('https') or
+                                                                   (message.startswith('magnet:?'))):
+                self.longest_message_length = len(message)
+                self.longest_message = message
             for word in message.split(" "):
                 self.word_count += 1
                 if word not in self.word_frequency_dict:
@@ -37,6 +46,8 @@ class Friend:
         self.word_frequency_dict.pop('omitted>', 0)
         self.media_shared = self.word_frequency_dict.pop('<Media', 0)
         self.word_count = self.word_count - 2 * self.media_shared
+        self.average_message_length = math.ceil(self.total_messages_length/self.message_count)
+        self.average_words_per_message = math.ceil(self.word_count/self.message_count)
 
     def find_frequently_used_words(self):
         number_of_words = 10

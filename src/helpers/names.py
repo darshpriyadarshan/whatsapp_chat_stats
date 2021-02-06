@@ -1,7 +1,10 @@
 def find_names(file_contents):
     name_starting_index = file_contents.find(" - ") + 3
+    if file_contents[name_starting_index:].startswith("Messages and calls are end-to-end encrypted"):
+        name_starting_index = file_contents.find(" - ", name_starting_index) + 3
     name_ending_index = file_contents.find(":", name_starting_index)
     f1 = file_contents[name_starting_index:name_ending_index]
+    #print("[names.py] Friend1 is {}".format(f1))
     name_starting_index = file_contents.find(" - ", name_ending_index) + 3
     name_ending_index = file_contents.find(":", name_starting_index)
     while True:
