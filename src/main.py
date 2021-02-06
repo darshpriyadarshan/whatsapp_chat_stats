@@ -25,8 +25,8 @@ def main():
         friend1.find_word_frequency()
         friend2.find_word_frequency()
 
-        friend1.find_top_words()
-        friend2.find_top_words()
+        friend1.find_frequently_used_words()
+        friend2.find_frequently_used_words()
 
         dates_list = dates.findall_dates(file_contents)
         no_message_days, total_days = dates.count_days(dates_list)
@@ -39,8 +39,8 @@ def main():
         print("Number of media sent by {} is {}".format(friend2.name, friend2.media_shared))
         print("Number of words sent by {} is {}".format(friend1.name, friend1.word_count))
         print("Number of words sent by {} is {}".format(friend2.name, friend2.word_count))
-        print("Top words sent by {} is {}".format(friend1.name, friend1.top_words))
-        print("Top words sent by {} is {}".format(friend1.name, friend2.top_words))
+        print("Frequently used words sent by {} are {}".format(friend1.name, friend1.frequently_used_words))
+        print("Frequently used words sent by {} are {}".format(friend2.name, friend2.frequently_used_words))
         print("Number of days without any message is {} from a total of {}".format(no_message_days, total_days))
         print("Messages per day by {} is {}".format(friend1.name, friend1.messages_per_day))
         print("Messages per day by {} is {}".format(friend2.name, friend2.messages_per_day))

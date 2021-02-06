@@ -10,7 +10,7 @@ class Friend:
         self.word_count = None
         self.word_frequency_dict = None
         self.media_shared = None
-        self.top_words = None
+        self.frequently_used_words = None
         self.messages_per_day = None
 
     def find_message_count(self, file_contents):
@@ -31,12 +31,17 @@ class Friend:
                     self.word_frequency_dict[word] = 1
                 else:
                     self.word_frequency_dict[word] += 1
-        self.word_frequency_dict = dict(sorted(self.word_frequency_dict.items(), key=lambda item: item[1], reverse=True))
+        self.word_frequency_dict = dict(sorted(self.word_frequency_dict.items(),
+                                               key=lambda item: item[1],
+                                               reverse=True))
         self.word_frequency_dict.pop('omitted>', 0)
         self.media_shared = self.word_frequency_dict.pop('<Media', 0)
         self.word_count = self.word_count - 2 * self.media_shared
 
-    def find_top_words(self):
-        self.top_words = sorted(self.word_frequency_dict.items(), key=lambda item: item[1], reverse=True)[:10]
+    def find_frequently_used_words(self):
+        number_of_words = 10
+        self.frequently_used_words = sorted(self.word_frequency_dict.items(),
+                                            key=lambda item: item[1],
+                                            reverse=True)[:number_of_words]
 
 
