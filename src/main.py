@@ -7,7 +7,7 @@ from friend import Friend
 
 def main():
     try:
-        file_path = "../sample.txt"
+        file_path = "../sample3.txt"
         file_contents = generic.read_file(file_path)
         #print(file_contents)
         friend1 = Friend()
@@ -68,6 +68,13 @@ def main():
         print("Average length of each message by {} is {}".format(friend2.name, friend2.average_message_length))
         print("Average number of words per message by {} is {}".format(friend1.name, friend1.average_words_per_message))
         print("Average number of words per message by {} is {}".format(friend2.name, friend2.average_words_per_message))
+
+        friend1.find_frequently_used_emojis()
+        friend2.find_frequently_used_emojis()
+        # print("Frequently used emojis by {} are {}".format(friend1.name, friend1.frequently_used_emojis))
+        # print("Frequently used emojis by {} are {}".format(friend2.name, friend2.frequently_used_emojis))
+        print("Frequently used emojis by {} with description {}".format(friend1.name, friend1.emojis_with_description))
+        print("Frequently used emojis by {} with description {}".format(friend2.name, friend2.emojis_with_description))
 
     except Exception:
         print(traceback.format_exc())
