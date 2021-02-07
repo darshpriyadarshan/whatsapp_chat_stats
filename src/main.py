@@ -7,7 +7,7 @@ from friend import Friend
 
 def main():
     try:
-        file_path = "../sample2.txt"
+        file_path = "../sample.txt"
         file_contents = generic.read_file(file_path)
         #print(file_contents)
         friend1 = Friend()
@@ -40,11 +40,12 @@ def main():
         print("Frequently used words sent by {} are {}".format(friend2.name, friend2.frequently_used_words))
 
         dates_list = dates.findall_dates(file_contents)
+        datetime_list, datetime_list_unique = dates.findall_datetime(file_contents)
+        datetime_list = dates.parse_datetime_list(datetime_list)
+        messages_count, start_time_index, end_time_index = dates.longest_conversation(datetime_list)
         no_message_days, total_days = dates.count_days(dates_list)
         friend1.messages_per_day = math.ceil(friend1.message_count/total_days)
         friend2.messages_per_day = math.ceil(friend2.message_count/total_days)
-
-
 
         print("Number of days without any message is {} from a total of {}".format(no_message_days, total_days))
         print("Messages per day by {} is {}".format(friend1.name, friend1.messages_per_day))
@@ -57,6 +58,11 @@ def main():
                                                                   friend1.longest_message_length))
         print("Longest Message by {} is {} \nLength is {}".format(friend2.name, friend2.longest_message,
                                                                   friend2.longest_message_length))
+        print("For finding the longest conversation, we have considered a maximum time gap of 10 minutes between "
+              "adjacent messages")
+        print("Longest conversation has {} messages, started at {}, ended at {}".format(messages_count,
+                                                                                        datetime_list[start_time_index],
+                                                                                        datetime_list[end_time_index]))
         print("Average length of each message by {} is {}".format(friend1.name, friend1.average_message_length))
         print("Average length of each message by {} is {}".format(friend2.name, friend2.average_message_length))
         print("Average number of words per message by {} is {}".format(friend1.name, friend1.average_words_per_message))
