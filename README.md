@@ -12,4 +12,6 @@ Helps you know some stats about any whatsapp chat
 8. Longest message and it's length
 9. Average length of message
 10. Average words per message
-
+11. Longest conversation
+12. Frequently used emojis
+13. Peak hour in a day and peak day in a week
