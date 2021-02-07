@@ -41,9 +41,9 @@ def main():
         print("Frequently used words sent by {} are {}".format(friend2.name, friend2.frequently_used_words))
 
         dates_list = dates.findall_dates(file_contents)
-        datetime_list, datetime_list_unique = dates.findall_datetime(file_contents)
-        datetime_list = dates.parse_datetime_list(datetime_list)
-        messages_count, start_time_index, end_time_index = dates.longest_conversation(datetime_list)
+        date_time_list, date_time_list_unique = dates.findall_date_time(file_contents)
+        date_time_list = dates.parse_date_time_list(date_time_list)
+        messages_count, start_time_index, end_time_index = dates.longest_conversation(date_time_list)
         no_message_days, total_days = dates.count_days(dates_list)
         friend1.messages_per_day = math.ceil(friend1.message_count/total_days)
         friend2.messages_per_day = math.ceil(friend2.message_count/total_days)
@@ -62,8 +62,8 @@ def main():
         print("For finding the longest conversation, we have considered a maximum time gap of 10 minutes between "
               "adjacent messages")
         print("Longest conversation has {} messages, started at {}, ended at {}".format(messages_count,
-                                                                                        datetime_list[start_time_index],
-                                                                                        datetime_list[end_time_index]))
+                                                                                        date_time_list[start_time_index],
+                                                                                        date_time_list[end_time_index]))
         print("Average length of each message by {} is {}".format(friend1.name, friend1.average_message_length))
         print("Average length of each message by {} is {}".format(friend2.name, friend2.average_message_length))
         print("Average number of words per message by {} is {}".format(friend1.name, friend1.average_words_per_message))
@@ -75,6 +75,20 @@ def main():
         # print("Frequently used emojis by {} are {}".format(friend2.name, friend2.frequently_used_emojis))
         print("Frequently used emojis by {} with description {}".format(friend1.name, friend1.emojis_with_description))
         print("Frequently used emojis by {} with description {}".format(friend2.name, friend2.emojis_with_description))
+
+        messages_at_peak_hour = dates.find_peak_hour(date_time_list)
+        percent_of_total_messages_hour = round((messages_at_peak_hour[1]/(friend1.message_count + friend2.message_count))*100, 2)
+        print("Most number of messages were sent at during {} hour of the day. "
+              "Total messages at this hour are {} which is {}% of total messages".
+              format(messages_at_peak_hour[0], messages_at_peak_hour[1], percent_of_total_messages_hour))
+
+        messages_at_peak_day = dates.find_peak_day(date_time_list)
+        percent_of_total_messages_day = round(
+            (messages_at_peak_day[1] / (friend1.message_count + friend2.message_count)) * 100, 2)
+        print("Most number of messages were sent on {}. "
+              "Total messages on this day are {} which is {}% of total messages".format(messages_at_peak_day[0],
+                                                                                        messages_at_peak_day[1],
+                                                                                        percent_of_total_messages_day))
 
     except Exception:
         print(traceback.format_exc())
