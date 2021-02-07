@@ -36,6 +36,7 @@ def main():
 
         friend1.find_frequently_used_words()
         friend2.find_frequently_used_words()
+        print("We are considering words with 3 or more letters for frequently used words, words are not case sensitive")
         print("Frequently used words sent by {} are {}".format(friend1.name, friend1.frequently_used_words))
         print("Frequently used words sent by {} are {}".format(friend2.name, friend2.frequently_used_words))
 

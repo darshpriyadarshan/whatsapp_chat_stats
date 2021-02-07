@@ -36,21 +36,22 @@ class Friend:
                 self.longest_message = message
             for word in message.split(" "):
                 self.word_count += 1
-                if word not in self.word_frequency_dict:
-                    self.word_frequency_dict[word] = 1
-                else:
-                    self.word_frequency_dict[word] += 1
+                if len(word) > 2:
+                    if word.lower() not in self.word_frequency_dict:
+                        self.word_frequency_dict[word.lower()] = 1
+                    else:
+                        self.word_frequency_dict[word.lower()] += 1
         self.word_frequency_dict = dict(sorted(self.word_frequency_dict.items(),
                                                key=lambda item: item[1],
                                                reverse=True))
         self.word_frequency_dict.pop('omitted>', 0)
-        self.media_shared = self.word_frequency_dict.pop('<Media', 0)
+        self.media_shared = self.word_frequency_dict.pop('<media', 0)
         self.word_count = self.word_count - 2 * self.media_shared
         self.average_message_length = math.ceil(self.total_messages_length/self.message_count)
         self.average_words_per_message = math.ceil(self.word_count/self.message_count)
 
     def find_frequently_used_words(self):
-        number_of_words = 10
+        number_of_words = 20
         self.frequently_used_words = sorted(self.word_frequency_dict.items(),
                                             key=lambda item: item[1],
                                             reverse=True)[:number_of_words]
