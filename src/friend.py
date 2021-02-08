@@ -1,5 +1,4 @@
 import re
-import math
 import emoji
 import regex
 
@@ -59,8 +58,8 @@ class Friend:
         self.word_frequency_dict.pop('omitted>', 0)
         self.media_shared = self.word_frequency_dict.pop('<media', 0)
         self.word_count = self.word_count - 2 * self.media_shared
-        self.average_message_length = math.ceil(self.total_messages_length/self.message_count)
-        self.average_words_per_message = math.ceil(self.word_count/self.message_count)
+        self.average_message_length = round(self.total_messages_length/self.message_count, 2)
+        self.average_words_per_message = round(self.word_count/self.message_count, 2)
 
     def find_frequently_used_words(self):
         number_of_words = 20
