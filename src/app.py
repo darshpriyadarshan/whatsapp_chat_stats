@@ -11,6 +11,8 @@ class Main:
     def __init__(self):
         self.file_path = None
         self.file_contents = None
+        self.peak_hour_percent = 0
+        self.peak_day_percent = 0
 
     def prepare_stats(self, friend1, friend2, date_object):
         try:
@@ -61,7 +63,7 @@ class Main:
                 friend2.message_count / date_object.total_days, 2)
 
             print("Number of days without any message is {} from a total of {}".format(
-                date_object.total_days - date_object.message_days, date_object.total_days))
+                date_object.no_message_days, date_object.total_days))
             print("Messages per day by {} is {}".format(
                 friend1.name, friend1.messages_per_day))
             print("Messages per day by {} is {}".format(
@@ -99,18 +101,18 @@ class Main:
                 friend2.name, friend2.emojis_with_description))
 
             date_object.find_peak_hour(date_object.date_time_list)
-            percent_of_total_messages_hour = round(
+            self.peak_hour_percent = round(
                 (date_object.messages_per_hour[0][1] / (friend1.message_count + friend2.message_count)) * 100, 2)
             print("Most number of messages were sent at during {} hour of the day. "
                   "Total messages at this hour are {} which is {}% of total messages".format(
-                      date_object.messages_per_hour[0][0], date_object.messages_per_hour[0][1], percent_of_total_messages_hour))
+                      date_object.messages_per_hour[0][0], date_object.messages_per_hour[0][1], self.peak_hour_percent))
 
             date_object.find_peak_day(date_object.date_time_list)
-            percent_of_total_messages_day = round(
+            self.peak_day_percent = round(
                 (date_object.messages_per_day[0][1] / (friend1.message_count + friend2.message_count)) * 100, 2)
             print("Most number of messages were sent on {}. "
                   "Total messages on this day are {} which is {}% of total messages".format(
-                      date_object.messages_per_day[0][0], date_object.messages_per_day[0][1], percent_of_total_messages_day))
+                      date_object.messages_per_day[0][0], date_object.messages_per_day[0][1], self.peak_day_percent))
 
         except Exception:
             print(traceback.format_exc())
@@ -132,7 +134,7 @@ class Main:
 def home():
     try:
         main_obj = Main()
-        main_obj.file_path = "../sample.txt"
+        main_obj.file_path = "../sample4.txt"
         main_obj.file_contents = generic.read_file(main_obj.file_path)
         #print(file_contents)
         friend1 = Friend()
@@ -142,5 +144,5 @@ def home():
     except Exception:
         print(traceback.format_exc())
     finally:
-        return render_template("basic.html", friend1=friend1, friend2=friend2, date_object=date_object)
+        return render_template("basic.html", main_obj=main_obj, friend1=friend1, friend2=friend2, date_object=date_object)
 

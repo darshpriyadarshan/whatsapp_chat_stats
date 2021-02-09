@@ -10,6 +10,7 @@ class Dates:
         self.date_time_list = []
         self.total_days = 0
         self.message_days = 0
+        self.no_message_days = 0
         self.longest_convo_messages = 0
         self.longest_convo_start = None
         self.longest_convo_end = None
@@ -34,6 +35,7 @@ class Dates:
         end_date = parse(dates_list[-1])
         self.total_days = (end_date - start_date).days
         self.message_days = len(dates_list)
+        self.no_message_days = self.total_days - self.message_days
 
     def longest_conversation(self, date_time_list):
         i = -1
