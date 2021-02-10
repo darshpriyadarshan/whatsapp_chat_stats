@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Whatsapp Chat Stats</title>
+    <link rel="stylesheet" type="text/css" href="../static/styles/style.css">
+</head>
+
+<body>
+    <div>
+        <p>Upload the <strong>Whatsapp chat with ____.txt</strong> file</p>
+    </div>
+    <form method="post" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        {{ form.file }}
+        <div>
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+</body>
+
+</html>

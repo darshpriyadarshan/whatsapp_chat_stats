@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Whatsapp Chat Stats</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="../static/styles/style.css">
+    </head>
+    
+    <body>
+        <header>
+            <div class='header'>
+                <h1><img src="../static/images/whatsapp.svg" alt="logo" width="25" height="25">Whatsapp Chat Stats</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('upload') }}">Upload</a></li>
+                </ul>
+            </nav>
+        </header>
+        <div class="wrapper" class="table-responsive">
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">{{friend1.name}}</th>
+                        <th scope="col">{{friend2.name}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Messages sent</th>
+                        <td>{{friend1.message_count}}</td>
+                        <td>{{friend2.message_count}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Media shared</th>
+                        <td>{{friend1.media_shared}}</td>
+                        <td>{{friend2.media_shared}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Total words sent</th>
+                        <td>{{friend1.word_count}}</td>
+                        <td>{{friend2.word_count}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Messages sent per day</th>
+                        <td>{{friend1.messages_per_day}}</td>
+                        <td>{{friend2.messages_per_day}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Length of all messages put together</th>
+                        <td>{{friend1.total_messages_length}}</td>
+                        <td>{{friend2.total_messages_length}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Average length of each message</th>
+                        <td>{{friend1.average_message_length}}</td>
+                        <td>{{friend2.average_message_length}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Words per message</th>
+                        <td>{{friend1.average_words_per_message}}</td>
+                        <td>{{friend2.average_words_per_message}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <hr class="rounded">
+
+        <div class="wrapper" class="table-responsive">
+            <table class="table table-borderless">
+                <thead>
+                    <tr class="text-center">
+                        <th scope="col">Frequently used words by {{friend1.name}}</th>
+                        <th scope="col">Frequently used words by {{friend2.name}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in range(friend1.frequently_used_words|length) %}
+                    <tr class="text-center">
+                        <td>{{friend1.frequently_used_words[i][0]}}({{friend1.frequently_used_words[i][1]}})</td>
+                        <td>{{friend2.frequently_used_words[i][0]}}({{friend2.frequently_used_words[i][1]}})</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class = "index">
+            <ul>
+                <li>We have considered words with 3 or more letters for frequently used words, words are not case sensitive
+                <li>Count is displayed next to each word
+            </ul>
+        </div>
+
+        <hr class="rounded">
+
+        <div class="wrapper" class="table-responsive">
+            <table class="table table-borderless">
+                <thead>
+                    <tr class="text-center">
+                        <th scope="col">Frequently used emojis by {{friend1.name}}</th>
+                        <th scope="col">Frequently used emojis by {{friend2.name}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in range(friend1.emojis_with_description|length) %}
+                    <tr class="text-center">
+                        <td>{{friend1.emojis_with_description[i][0][0]}}({{friend1.emojis_with_description[i][0][1]}}) </td>
+                        <td>{{friend2.emojis_with_description[i][0][0]}}({{friend2.emojis_with_description[i][0][1]}}) </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="index">
+            <ul>
+                <li>Count is displayed next to each emoji
+            </ul>
+        </div>
+
+        <hr class="rounded">
+
+        <p class="notes1"> There are <strong>{{date_object.no_message_days}}</strong>
+            days without any message from a total of {{date_object.total_days}} days
+        </p>
+
+        <p class="notes1"> Longest conversation happened from 
+            <strong>{{date_object.date_time_list[date_object.longest_convo_start]}}</strong> till
+            <strong>{{date_object.date_time_list[date_object.longest_convo_end]}}</strong>
+            with a total of <strong>{{date_object.longest_convo_messages}}</strong> messages
+        </p>
+
+        <p class="notes1"> Highest number of messages were exchanged during 
+            <strong>{{date_object.messages_per_hour[0][0]}}</strong>. Total messages during this hour are 
+            <strong>{{date_object.messages_per_hour[0][1]}}</strong> which is <strong>{{main_obj.peak_hour_percent}}%</strong>
+            of total messages
+        </p>
+
+        <p class="notes1"> Highest number of messages were exchanged on
+            <strong>{{date_object.messages_per_day[0][0]}}</strong>. Total messages on this day are
+            <strong>{{date_object.messages_per_day[0][1]}}</strong> which is <strong>{{main_obj.peak_day_percent}}%</strong>
+            of total messages
+        </p>
+
+        <!-- <p> Friend1 is {{friend1.name}}</p>
+        <p> Friend2 is {{friend2.name}}</p>
+        <p> Number of messages sent by {{friend1.name}} is {{friend1.message_count}}</p>
+        <p> Number of messages sent by {{friend2.name}} is {{friend2.message_count}}</p>
+        <p> Number of media sent by {{friend1.name}} is {{friend1.media_shared}}</p>
+        <p> Number of media sent by {{friend2.name}} is {{friend2.media_shared}}</p>
+        <p> Number of words sent by {{friend1.name}} is {{friend1.word_count}}</p>
+        <p> Number of words sent by {{friend2.name}} is {{friend2.word_count}}</p>
+        <p>We are considering words with 3 or more letters for frequently used words, words are not case sensitive</p>
+        <p>Frequently used words sent by {{friend1.name}} are {{friend1.frequently_used_words}}</p>
+        <p>Frequently used words sent by {{friend2.name}} are {{friend2.frequently_used_words}}</p>
+        <p>Number of days without any message is {{date_object.no_message_days}} from a total of {{date_object.total_days}}</p>
+        <p>Messages per day by {{friend1.name}} is {{friend1.messages_per_day}}</p>
+        <p>Messages per day by {{friend2.name}} is {{friend2.messages_per_day}}</p>
+        <p>Total length of all messages put together by {{friend1.name}} is {{friend1.total_messages_length}}</p>
+        <p>Total length of all messages put together by {{friend2.name}} is {{friend2.total_messages_length}}</p>
+        <p>Longest Message by {{friend1.name}} is {{friend1.longest_message}} Length is {{friend1.longest_message_length}}</p>
+        <p>Longest Message by {{friend2.name}} is {{friend2.longest_message}} Length is {{friend2.longest_message_length}}</p>
+        <p>For finding the longest conversation, we have considered a maximum time gap of 10 minutes between adjacent messages</p>
+        <p>Longest conversation has {{date_object.longest_convo_messages}} messages, started at {{date_object.date_time_list[
+        date_object.longest_convo_start]}}, ended at {{date_object.date_time_list[date_object.longest_convo_end]}}</p>
+        <p>Average length of each message by {{friend1.name}} is {{friend1.average_message_length}}</p>
+        <p>Average length of each message by {{friend2.name}} is {{friend2.average_message_length}}</p>
+        <p>Average number of words per message by {{friend1.name}} is {{friend1.average_words_per_message}}</p>
+        <p>Average number of words per message by {{friend2.name}} is {{friend2.average_words_per_message}}</p>
+        <p>Frequently used emojis by {{friend1.name}} with description {{friend1.emojis_with_description}}</p>
+        <p>Frequently used emojis by {{friend2.name}} with description {{friend2.emojis_with_description}}</p>
+        <p>Most number of messages were sent at during {{date_object.messages_per_hour[0][0]}} hour of the day. Total messages at this hour are {{date_object.messages_per_hour[0][1]}} which is {{main_obj.peak_hour_percent}}% of total messages</p>
+        <p>{% set percent_of_total_messages_day = (date_object.messages_per_day[0][1] / (friend1.message_count + friend2.message_count)) * 100 %}</p>
+        <p>Most number of messages were sent on {{date_object.messages_per_day[0][0]}}. Total messages on this day are {{date_object.messages_per_day[0][1]}} which is {{main_obj.peak_day_percent}}% of total messages</p> -->
+    </body>
+</html>

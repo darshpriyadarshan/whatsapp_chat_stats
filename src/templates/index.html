@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Whatsapp Chat Stats</title>
+    <link rel="stylesheet" type="text/css" href="../static/styles/style.css">
+    <link href='http://fonts.googleapis.com/css?family=Crete+Round' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+        <header>
+            <div class='header'>
+                <h1><img src="../static/images/whatsapp.svg" alt="logo" width="25" height="25">Whatsapp Chat Stats</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('upload') }}">Upload</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        
+        <div>
+            <h4>How to get the stats?</h4>
+            <p class="notes2">Firstly you have to export the chat from whatsapp and save it</p>
+            <p class="notes2">How to export? 
+                <a href="https://faq.whatsapp.com/android/chats/how-to-save-your-chat-history/?lang=en">Click here</a>
+                for official documentation by Whatsapp
+            </p>
+            <p class="notes2">Make sure to export chat <strong>without media</strong></p>
+            <p class="notes2">Now that you have <strong>Whatsapp chat with ____.txt</strong> ready, click upload on top right corner</p>
+    
+            <h4>Privacy?</h4>
+            <p class="notes2">The chat file uploaded is deleted just after the stats are prepared. 
+                So the contents of the file will not be stored on the server</p>
+        </div>
+        
+        <footer>
+            <div id="footer-info"></div>
+            <div id="footer-links">
+                <ul></ul>
+                <ul></ul>
+                <ul></ul>
+            </div>
+        </footer>
+</body>
+
+</html>
