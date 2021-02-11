@@ -13,7 +13,6 @@ class Main:
         try:
             logging.debug("prepare_stats::enter")
             friend1.name, friend2.name = names.find_names(self.file_contents)
-            logging.debug("Friend1 is %s Friend2 is %s", friend1.name, friend2.name)
 
             friend1.parsed_name, friend2.parsed_name = names.names_parsed(friend1.name, friend2.name)
 
