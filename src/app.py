@@ -12,9 +12,9 @@ SECRET_KEY = os.urandom(32)
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = SECRET_KEY
-app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024
+app.config['MAX_CONTENT_LENGTH'] = 50 * 1024 * 1024
 app.config['UPLOAD_EXTENSIONS'] = ['.txt']
-logging.basicConfig(filename='app.log', filemode='w', level=logging.DEBUG)
+logging.basicConfig(level=logging.DEBUG)
 
 @app.errorhandler(413)
 def too_large(e):
