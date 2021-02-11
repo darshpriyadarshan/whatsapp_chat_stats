@@ -43,8 +43,7 @@ class Friend:
                         self.emoji_dict[an_emoji] = 1
                     else:
                         self.emoji_dict[an_emoji] += 1
-            if len(message) > self.longest_message_length and not (message.startswith('https') or
-                                                                   (message.startswith('magnet:?'))):
+            if len(message) > self.longest_message_length and not ('https' in message or 'http' in message or 'magnet:?' in message):
                 self.longest_message_length = len(message)
                 self.longest_message = message
             for word in message.split(" "):
