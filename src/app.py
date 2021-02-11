@@ -8,7 +8,7 @@ from flask_wtf.file import FileField
 from werkzeug.utils import secure_filename
 import os
 import logging
-SECRET_KEY = os.urandom(32)
+SECRET_KEY = 'mysecretkey'
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = SECRET_KEY
