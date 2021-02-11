@@ -1,6 +1,7 @@
 import re
 import emoji
 import regex
+import logging
 
 
 class Friend:
@@ -24,14 +25,19 @@ class Friend:
         self.emojis_with_description = []
 
     def find_message_count(self, file_contents):
+        logging.debug("find_message_count::enter")
         self.message_count = file_contents.count(self.parsed_name)
+        logging.debug("find_message_count::exit")
 
     def prepare_messages_list(self, file_contents):
+        logging.debug("prepare_messages_list::enter")
         date_pattern = '[\d]{1,2}/[\d]{1,2}/[\d]{2}'
         message_pattern = self.parsed_name + '(.*)\n' + date_pattern
         self.messages_list = re.findall(message_pattern, file_contents)
+        logging.debug("prepare_messages_list::exit")
 
     def find_word_frequency(self):
+        logging.debug("find_word_frequency::enter")
         for message in self.messages_list:
             self.total_messages_length += len(message)
             word = regex.findall(r'\X', message)
@@ -59,20 +65,22 @@ class Friend:
         self.word_count = self.word_count - 2 * self.media_shared
         self.average_message_length = round(self.total_messages_length/self.message_count, 2)
         self.average_words_per_message = round(self.word_count/self.message_count, 2)
+        logging.debug("find_word_frequency::exit")
 
     def find_frequently_used_words(self):
+        logging.debug("find_frequently_used_words::enter")
         number_of_words = 20
-        #sorted(self.word_frequency_dict.items(), key=lambda item: item[1], reverse=True) returns list of tuples
         self.frequently_used_words = sorted(self.word_frequency_dict.items(),
                                             key=lambda item: item[1],
                                             reverse=True)[:number_of_words]
+        logging.debug("find_frequently_used_words::exit")
 
     def find_frequently_used_emojis(self):
+        logging.debug("find_frequently_used_emojis::enter")
         number_of_emojis = 10
         self.frequently_used_emojis = sorted(self.emoji_dict.items(), key=lambda item: item[1], reverse=True)[0:]
-        # print(len(self.frequently_used_emojis))
         for an_emoji in self.frequently_used_emojis:
             if an_emoji[0] in emoji.UNICODE_EMOJI['en'].keys():
                 self.emojis_with_description.append([an_emoji, emoji.UNICODE_EMOJI['en'][an_emoji[0]][1:-1]])
-        # print(len(self.emojis_with_description))
         self.emojis_with_description = self.emojis_with_description[0:number_of_emojis]
+        logging.debug("find_frequently_used_emojis::exit")
