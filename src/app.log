@@ -1,0 +1,52 @@
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [11/Feb/2021 20:33:58] "[37mGET / HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Feb/2021 20:33:58] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:root:upload route::enter
+INFO:root:upload route [GET]::exit
+INFO:werkzeug:127.0.0.1 - - [11/Feb/2021 20:34:00] "[37mGET /upload HTTP/1.1[0m" 200 -
+INFO:root:upload route::enter
+INFO:root:upload route [POST]::exit
+INFO:werkzeug:127.0.0.1 - - [11/Feb/2021 20:34:07] "[32mPOST /upload HTTP/1.1[0m" 302 -
+INFO:root:stats route::enter
+DEBUG:root:prepare_stats::enter
+DEBUG:root:find_names::enter
+DEBUG:root:find_names::exit
+DEBUG:root:names_parsed::enter
+DEBUG:root:names_parsed::exit
+DEBUG:root:find_message_count::enter
+DEBUG:root:find_message_count::exit
+DEBUG:root:find_message_count::enter
+DEBUG:root:find_message_count::exit
+DEBUG:root:prepare_messages_list::enter
+DEBUG:root:prepare_messages_list::exit
+DEBUG:root:prepare_messages_list::enter
+DEBUG:root:prepare_messages_list::exit
+DEBUG:root:find_word_frequency::enter
+DEBUG:root:find_word_frequency::exit
+DEBUG:root:find_word_frequency::enter
+DEBUG:root:find_word_frequency::exit
+DEBUG:root:find_frequently_used_words::enter
+DEBUG:root:find_frequently_used_words::exit
+DEBUG:root:find_frequently_used_words::enter
+DEBUG:root:find_frequently_used_words::exit
+DEBUG:root:findall_dates::enter
+DEBUG:root:findall_dates::exit
+DEBUG:root:findall_date_time::enter
+DEBUG:root:findall_date_time::exit
+DEBUG:root:longest_conversation::enter
+DEBUG:root:longest_conversation::exit
+DEBUG:root:count_days::enter
+DEBUG:root:count_days::exit
+DEBUG:root:find_frequently_used_emojis::enter
+DEBUG:root:find_frequently_used_emojis::exit
+DEBUG:root:find_frequently_used_emojis::enter
+DEBUG:root:find_frequently_used_emojis::exit
+DEBUG:root:find_peak_hour::enter
+DEBUG:root:find_peak_hour::exit
+DEBUG:root:find_peak_day::enter
+DEBUG:root:find_peak_day::exit
+DEBUG:root:prepare_stats::exit
+INFO:root:stats route::exit
+DEBUG:root:remove_file::enter
+DEBUG:root:remove_file::exit
+INFO:werkzeug:127.0.0.1 - - [11/Feb/2021 20:34:15] "[37mGET /stats HTTP/1.1[0m" 200 -
