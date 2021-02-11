@@ -25,6 +25,8 @@ def names_parsed(f1, f2):
     logging.debug("names_parsed::enter")
     f1_parsed = " - " + f1 + ": "
     f2_parsed = " - " + f2 + ": "
+    logging.debug("Friend1 is %s", f1_parsed)
+    logging.debug("Friend2 is %s", f2_parsed)
     logging.debug("names_parsed::exit")
     return f1_parsed, f2_parsed
 

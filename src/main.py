@@ -15,7 +15,8 @@ class Main:
             friend1.name, friend2.name = names.find_names(self.file_contents)
 
             friend1.parsed_name, friend2.parsed_name = names.names_parsed(friend1.name, friend2.name)
-
+            logging.debug("Friend1 is %s", friend1.parsed_name)
+            logging.debug("Friend2 is %s", friend2.parsed_name)
             friend1.find_message_count(self.file_contents)
             friend2.find_message_count(self.file_contents)
 
