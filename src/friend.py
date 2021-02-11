@@ -70,6 +70,7 @@ class Friend:
     def find_frequently_used_words(self):
         logging.debug("find_frequently_used_words::enter")
         number_of_words = 20
+        #sorted(self.word_frequency_dict.items(), key=lambda item: item[1], reverse=True) returns list of tuples
         self.frequently_used_words = sorted(self.word_frequency_dict.items(),
                                             key=lambda item: item[1],
                                             reverse=True)[:number_of_words]
