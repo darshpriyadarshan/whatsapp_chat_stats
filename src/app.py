@@ -1,6 +1,6 @@
-from helpers.dates import Dates
-from friend import Friend
-from main import Main
+from src.helpers.dates import Dates
+from src.friend import Friend
+from src.main import Main
 import traceback
 from flask import session, url_for, redirect, render_template, after_this_request, Flask
 from flask_wtf import FlaskForm

@@ -1,5 +1,5 @@
 import traceback
-from helpers import names
+from src.helpers import names
 import logging
 
 
