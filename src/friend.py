@@ -83,5 +83,6 @@ class Friend:
         for an_emoji in self.frequently_used_emojis:
             if an_emoji[0] in emoji.UNICODE_EMOJI['en'].keys():
                 self.emojis_with_description.append([an_emoji, emoji.UNICODE_EMOJI['en'][an_emoji[0]][1:-1]])
-        self.emojis_with_description = self.emojis_with_description[0:number_of_emojis]
+        if len(self.emojis_with_description) > number_of_emojis:
+            self.emojis_with_description = self.emojis_with_description[0:number_of_emojis]
         logging.debug("find_frequently_used_emojis::exit")

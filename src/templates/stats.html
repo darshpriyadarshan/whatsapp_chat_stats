@@ -117,11 +117,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for i in range(friend1.emojis_with_description|length) %}
-                    <tr class="text-center">
-                        <td>{{friend1.emojis_with_description[i][0][0]}}({{friend1.emojis_with_description[i][0][1]}}) </td>
-                        <td>{{friend2.emojis_with_description[i][0][0]}}({{friend2.emojis_with_description[i][0][1]}}) </td>
-                    </tr>
+                    {% if friend1.emojis_with_description|length >= friend2.emojis_with_description|length %}
+                        {% set alist = friend1.emojis_with_description %}
+                    {% else %}
+                        {% set alist = friend2.emojis_with_description %}
+                    {% endif %}
+                    {% for i in alist %}
+                        <tr class="text-center">
+                            {% if loop.index-1 < friend1.emojis_with_description|length %}
+                                <td>{{friend1.emojis_with_description[loop.index-1][0][0]}}({{friend1.emojis_with_description[loop.index-1][0][1]}}) </td>
+                            {% endif %}
+                            {% if loop.index-1 < friend2.emojis_with_description|length %}
+                                <td>{{friend2.emojis_with_description[loop.index-1][0][0]}}({{friend2.emojis_with_description[loop.index-1][0][1]}}) </td>
+                            {% endif %}
+                        </tr>
                     {% endfor %}
                 </tbody>
             </table>
@@ -157,11 +166,11 @@
             of total messages
         </p>
 
-        <p class="notes1">Longest Message by {{friend1.name}} is "{{friend1.longest_message}}".
+        <p class="notes1">Longest Message by {{friend1.name}} is "{{friend1.longest_message}}"
             Length is {{friend1.longest_message_length}}
         </p>
 
-        <p class="notes1">Longest Message by {{friend2.name}} is "{{friend2.longest_message}}".
+        <p class="notes1">Longest Message by {{friend2.name}} is "{{friend2.longest_message}}"
             Length is {{friend2.longest_message_length}}
         </p>
     </body>
