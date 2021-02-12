@@ -20,7 +20,7 @@ class Dates:
 
     def findall_dates(self, file_contents):
         logging.debug("findall_dates::enter")
-        date_pattern = r"\n[\d]{1,2}/[\d]{1,2}/[\d]{2}"
+        date_pattern = r"\n[\d]{1,2}/[\d]{1,2}/[\d]{2,4}"
         self.dates_list = re.findall(date_pattern, file_contents)
         # to remove \n from date, using date[1:]
         self.dates_list = [date[1:] for date in self.dates_list]
@@ -30,7 +30,7 @@ class Dates:
 
     def findall_date_time(self, file_contents):
         logging.debug("findall_date_time::enter")
-        date_time_pattern = r"\n[\d]{1,2}/[\d]{1,2}/[\d]{2}, [\d]{2}:[\d]{2}"
+        date_time_pattern = r"\n[\d]{1,2}/[\d]{1,2}/[\d]{2,4}, [\d]{2}:[\d]{2}"
         self.date_time_list = re.findall(date_time_pattern, file_contents)
         self.date_time_list = [parse(date_time[1:]) for date_time in self.date_time_list]
         logging.debug("findall_date_time::exit")
