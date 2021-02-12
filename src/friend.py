@@ -73,7 +73,9 @@ class Friend:
         #sorted(self.word_frequency_dict.items(), key=lambda item: item[1], reverse=True) returns list of tuples
         self.frequently_used_words = sorted(self.word_frequency_dict.items(),
                                             key=lambda item: item[1],
-                                            reverse=True)[:number_of_words]
+                                            reverse=True)[0:]
+        if len(self.frequently_used_words) > number_of_words:
+            self.frequently_used_words = self.frequently_used_words[0:number_of_words]
         logging.debug("find_frequently_used_words::exit")
 
     def find_frequently_used_emojis(self):

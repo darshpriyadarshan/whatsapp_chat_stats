@@ -89,10 +89,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for i in range(friend1.frequently_used_words|length) %}
+                    {% if friend1.frequently_used_words|length >= friend2.frequently_used_words|length %}
+                    {% set alist = friend1.frequently_used_words %}
+                    {% else %}
+                    {% set alist = friend2.frequently_used_words %}
+                    {% endif %}
+                    {% for i in alist %}
                     <tr class="text-center">
-                        <td>{{friend1.frequently_used_words[i][0]}}({{friend1.frequently_used_words[i][1]}})</td>
-                        <td>{{friend2.frequently_used_words[i][0]}}({{friend2.frequently_used_words[i][1]}})</td>
+                        {% if loop.index-1 < friend1.frequently_used_words|length %} 
+                            <td>{{friend1.frequently_used_words[loop.index-1][0]}}({{friend1.frequently_used_words[loop.index-1][1]}})</td>
+                        {% endif %}
+                        {% if loop.index-1 < friend2.frequently_used_words|length %}
+                            <td>{{friend2.frequently_used_words[loop.index-1][0]}}({{friend2.frequently_used_words[loop.index-1][1]}})</td>
+                        {% endif %}
                     </tr>
                     {% endfor %}
                 </tbody>

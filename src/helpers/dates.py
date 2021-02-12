@@ -38,8 +38,10 @@ class Dates:
     def count_days(self, dates_list):
         logging.debug("count_days::enter")
         start_date = parse(dates_list[0])
+        logging.debug("start date %s", start_date)
         end_date = parse(dates_list[-1])
-        self.total_days = (end_date - start_date).days
+        logging.debug("end date %s", end_date)
+        self.total_days = (end_date - start_date).days + 1
         self.message_days = len(dates_list)
         self.no_message_days = self.total_days - self.message_days
         logging.debug("count_days::exit")
