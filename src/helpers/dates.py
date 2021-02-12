@@ -46,24 +46,20 @@ class Dates:
 
     def longest_conversation(self, date_time_list):
         logging.debug("longest_conversation::enter")
-        i = -1
-        j = 0
-        while j < len(date_time_list):
-            i += 1
-            j = i+1
-            counter = 0
-            if (date_time_list[j] - date_time_list[i]).seconds < 600:
-                temp = i
-            else:
-                continue
-            while j < len(date_time_list) and (date_time_list[j] - date_time_list[i]).seconds < 600:
-                counter += 1
+        i = 0
+        while i < len(date_time_list):
+            j = i
+            while i+1 < len(date_time_list) and (date_time_list[i+1] - date_time_list[i]).seconds < 600:
                 i += 1
-                j += 1
+            
+            counter = i - j + 1
             if counter > self.longest_convo_messages:
                 self.longest_convo_messages = counter
-                self.longest_convo_end = j-1
-                self.longest_convo_start = temp
+                self.longest_convo_end = i
+                self.longest_convo_start = j
+            
+            if i==j:
+                i += 1
         logging.debug("longest_conversation::exit")
 
     def find_peak_hour(self, date_time_list):
