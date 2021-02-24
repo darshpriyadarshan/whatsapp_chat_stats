@@ -49,6 +49,23 @@ def stats():
     except Exception as e:
         logging.exception("Exception in stats route handler")
 
+
+@app.route('/sample', methods=['GET'])
+def sample():
+    try:
+        logging.info("sample route::enter")
+        main_obj = Main()
+        file_handle = open('sample.txt', encoding="utf8", mode="r")
+        main_obj.file_contents = file_handle.read()
+        friend1 = Friend()
+        friend2 = Friend()
+        date_object = Dates()
+        main_obj.prepare_stats(friend1, friend2, date_object)
+        logging.info("sample route::exit")
+        return render_template("stats.html", main_obj=main_obj, friend1=friend1, friend2=friend2, date_object=date_object)
+    except Exception as e:
+        logging.exception("Exception in stats route handler")
+
 class UploadForm(FlaskForm):
     file = FileField()
 

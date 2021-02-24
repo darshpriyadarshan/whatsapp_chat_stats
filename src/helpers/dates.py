@@ -18,34 +18,27 @@ class Dates:
         self.messages_per_hour = []
         self.messages_per_day = []
 
-    def findall_dates(self, file_contents, os):
+    def findall_dates(self, file_contents):
         logging.debug("findall_dates::enter")
-        if os=='android':
-            date_pattern = r"\n[\d]{1,2}/[\d]{1,2}/[\d]{2,4}"
-            self.dates_list = re.findall(date_pattern, file_contents)
-            # to remove \n from date, using date[1:]
-            self.dates_list = [date[1:] for date in self.dates_list]
-            # OrderedDict.fromkeys removes duplicates while preserving order
-            self.dates_list = list(OrderedDict.fromkeys(self.dates_list))
-        elif os=='ios':
-            date_pattern = r"\n\[[\d]{1,2}/[\d]{1,2}/[\d]{2,4}"
-            self.dates_list = re.findall(date_pattern, file_contents)
-            # to remove \n[ from date, using date[1:]
+        date_pattern = r"\n\[?[\d]{1,2}/[\d]{1,2}/[\d]{2,4}"
+        self.dates_list = re.findall(date_pattern, file_contents)
+        # to remove \n[ from date, using date[2:]
+        if self.dates_list[0][1] == '[' :
             self.dates_list = [date[2:] for date in self.dates_list]
-            # OrderedDict.fromkeys removes duplicates while preserving order
-            self.dates_list = list(OrderedDict.fromkeys(self.dates_list))
+        else:
+            self.dates_list = [date[1:] for date in self.dates_list]
+        # OrderedDict.fromkeys removes duplicates while preserving order
+        self.dates_list = list(OrderedDict.fromkeys(self.dates_list))
         logging.debug("findall_dates::exit")
 
-    def findall_date_time(self, file_contents, os):
+    def findall_date_time(self, file_contents):
         logging.debug("findall_date_time::enter")
-        if os=='android':
-            date_time_pattern = r"\n[\d]{1,2}/[\d]{1,2}/[\d]{2,4}, [\d]{2}:[\d]{2}"
-            self.date_time_list = re.findall(date_time_pattern, file_contents)
+        date_time_pattern = r"\n\[?[\d]{1,2}/[\d]{1,2}/[\d]{2,4}, [\d]{1,2}:[\d]{2}(?::[\d]{2})?(?: [AP]M)?(?: [ap]m)?"
+        self.date_time_list = re.findall(date_time_pattern, file_contents)
+        if self.date_time_list[0][1] == '[' :
+            self.date_time_list = [parse(date_time[2:]) for date_time in self.date_time_list]
+        else:
             self.date_time_list = [parse(date_time[1:]) for date_time in self.date_time_list]
-        elif os=='ios':
-            date_time_pattern = r"\n\[[\d]{1,2}/[\d]{1,2}/[\d]{2,4}, [\d]{1,2}:[\d]{2}:[\d]{2} [A,P]M\]"
-            self.date_time_list = re.findall(date_time_pattern, file_contents)
-            self.date_time_list = [parse(date_time[2:-1]) for date_time in self.date_time_list]
         logging.debug("findall_date_time::exit")
 
     def count_days(self, dates_list):

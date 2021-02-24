@@ -29,11 +29,9 @@ class Friend:
         self.message_count = file_contents.count(self.parsed_name)
         logging.debug("find_message_count::exit")
 
-    def prepare_messages_list(self, file_contents, os):
+    def prepare_messages_list(self, file_contents):
         logging.debug("prepare_messages_list::enter")
-        date_pattern = '[\d]{1,2}/[\d]{1,2}/[\d]{2}'
-        if os=='ios':
-            date_pattern = '\[[\d]{1,2}/[\d]{1,2}/[\d]{2}'
+        date_pattern = '\[?[\d]{1,2}/[\d]{1,2}/[\d]{2}'
         message_pattern = self.parsed_name + '(.*)\n' + date_pattern
         self.messages_list = re.findall(message_pattern, file_contents)
         logging.debug("prepare_messages_list::exit")

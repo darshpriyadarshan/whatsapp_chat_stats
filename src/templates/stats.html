@@ -98,9 +98,13 @@
                     <tr class="text-center">
                         {% if loop.index-1 < friend1.frequently_used_words|length %} 
                             <td>{{friend1.frequently_used_words[loop.index-1][0]}}({{friend1.frequently_used_words[loop.index-1][1]}})</td>
+                        {% else %}
+                            <td> </td>
                         {% endif %}
                         {% if loop.index-1 < friend2.frequently_used_words|length %}
                             <td>{{friend2.frequently_used_words[loop.index-1][0]}}({{friend2.frequently_used_words[loop.index-1][1]}})</td>
+                        {% else %}
+                            <td> </td>
                         {% endif %}
                     </tr>
                     {% endfor %}
@@ -135,9 +139,13 @@
                         <tr class="text-center">
                             {% if loop.index-1 < friend1.emojis_with_description|length %}
                                 <td>{{friend1.emojis_with_description[loop.index-1][0][0]}}({{friend1.emojis_with_description[loop.index-1][0][1]}}) </td>
+                            {% else %}
+                                <td> </td>
                             {% endif %}
                             {% if loop.index-1 < friend2.emojis_with_description|length %}
                                 <td>{{friend2.emojis_with_description[loop.index-1][0][0]}}({{friend2.emojis_with_description[loop.index-1][0][1]}}) </td>
+                            {% else %}
+                                <td> </td>
                             {% endif %}
                         </tr>
                     {% endfor %}
